@@ -16,4 +16,4 @@
 
 ## Contributors
 
-> Add a list of contributors
+- [Zsolt Meszaros](https://github.com/zsoltime)
