@@ -24,11 +24,6 @@
 > Describe how to install, build, and test your app
 
 ## Contributors
-
-> Add a list of contributors
-
-=======
-## Contributors
 - [Zsolt Meszaros](https://github.com/zsoltime)
 - [Aimen Aounallah](https://github.com/Mizou9999)
 
