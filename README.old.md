@@ -4,16 +4,16 @@
 
 ## User Stories
 
--  [ ] As a user I can see a randomly generated password on page load
--  [ ] As a user I can change the length of the generated password
--  [ ] As a user I can include/exclude uppercase letters, lowercase letters, numbers, and symbols
--  [ ] As a user I can see a new password whenever I make a change in my settings
--  [ ] As a user I can click on a button to copy the password to clipboard without selecting it first
+- [ ] As a user I can see a randomly generated password on page load
+- [ ] As a user I can change the length of the generated password
+- [ ] As a user I can include/exclude uppercase letters, lowercase letters, numbers, and symbols
+- [ ] As a user I can see a new password whenever I make a change in my settings
+- [ ] As a user I can click on a button to copy the password to clipboard without selecting it first
 
 ## Challenges
 
--  [ ] As a user I can come back to the page at any time and generate new passwords with my previously used settings
--  [ ] As a user I can see the strength of the generated password on a strength meter
+- [ ] As a user I can come back to the page at any time and generate new passwords with my previously used settings
+- [ ] As a user I can see the strength of the generated password on a strength meter
 
 ## Tools Used
 
@@ -25,6 +25,6 @@
 
 ## Contributors
 
--  [Zsolt Meszaros](https://github.com/zsoltime)
--  [Aimen Aounallah](https://github.com/Mizou9999)
-   > > > > > > > 30a5802fa5c26e9d3158f58ae293bd84e44984c4
+- [Zsolt Meszaros](https://github.com/zsoltime)
+- [Aimen Aounallah](https://github.com/Mizou9999)
+  > > > > > > > 30a5802fa5c26e9d3158f58ae293bd84e44984c4
