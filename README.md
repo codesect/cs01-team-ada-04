@@ -27,4 +27,3 @@
 
 - [Zsolt Meszaros](https://github.com/zsoltime)
 - [Aimen Aounallah](https://github.com/Mizou9999)
-  > > > > > > > 30a5802fa5c26e9d3158f58ae293bd84e44984c4
