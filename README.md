@@ -24,6 +24,6 @@
 > Describe how to install, build, and test your app
 
 ## Contributors
+
 - [Zsolt Meszaros](https://github.com/zsoltime)
 - [Aimen Aounallah](https://github.com/Mizou9999)
-
