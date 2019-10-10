@@ -1,0 +1,41 @@
+const colors = {
+  black: '#1a051d',
+  blue: '#0084f4',
+  blueLight: '#66b5f8',
+  blueLighter: '#d5e9fa',
+  darkPurple: '#3f3355',
+  green: '#00c48c',
+  greenLight: '#7ddfc3',
+  greenLighter: '#d5f2ea',
+  grey: '#d0c9d6',
+  greyLight: '#ece9f1',
+  greyLighter: '#f7f5f9',
+  orange: '#ffa26b',
+  orangeLight: '#ffc7a6',
+  orangeLighter: '#ffe8da',
+  purple: '#8555c5',
+  purpleLight: '#dba5f5',
+  purpleLighter: '#eedff2',
+  red: '#ff647c',
+  redLight: '#fdafbb',
+  redLighter: '#fbe4e8',
+  white: '#fff',
+};
+
+const defaultTheme = {
+  background: colors.greyLighter,
+  border: colors.greyLight,
+  borderRadius: '0.25rem',
+  borderActive: colors.purple,
+  boxShadow: '0 6px 64px 0 rgba(0, 0, 0, 0.07)',
+  button: colors.purple,
+  buttonActive: colors.darkPurple,
+  buttonText: colors.white,
+  input: colors.white,
+  text: colors.darkPurple,
+  maxWidth: '800px',
+  transition: '0.3s cubic-bezier(1, -0.65, 0, 2.25)',
+  transitionEase: '0.3s ease-in-out',
+};
+
+export default defaultTheme;
