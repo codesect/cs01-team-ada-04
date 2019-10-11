@@ -1,6 +1,6 @@
 import React from 'react';
 
-import generatePassword from './utils/generatePassword';
+import generatePassword from '../utils/generatePassword';
 
 function App() {
   return (
