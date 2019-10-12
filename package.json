@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "jest-styled-components": "^6.3.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0",
@@ -44,6 +45,9 @@
       "cypress/globals": true
     },
     "extends": "react-app",
+    "globals": {
+      "withTheme": "readonly"
+    },
     "plugins": [
       "eslint-plugin-cypress"
     ],

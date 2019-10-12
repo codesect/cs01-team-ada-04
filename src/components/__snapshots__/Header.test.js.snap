@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> matches snapshot 1`] = `
+.c1 {
+  margin: 0 auto;
+  max-width: 832px;
+  padding: 0.5rem 1rem;
+}
+
+.c0 {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.07);
+}
+
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c3 {
+  margin-left: 1rem;
+}
+
+.c5 {
+  line-height: 1.25;
+}
+
+.c4 {
+  color: #8555c5;
+  font-size: 2rem;
+  -webkit-letter-spacing: -0.125rem;
+  -moz-letter-spacing: -0.125rem;
+  -ms-letter-spacing: -0.125rem;
+  letter-spacing: -0.125rem;
+  line-height: 1;
+}
+
+@media (min-width:600px) {
+  .c2 {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+}
+
+<header
+  class="c0"
+>
+  <div
+    class="c1"
+  >
+    <div
+      class="c2"
+    >
+      <img
+        alt=""
+        src="logo.svg"
+      />
+      <div
+        class="c3"
+      >
+        <div
+          class="c4"
+        >
+          <strong>
+            Strong
+          </strong>
+          Pass
+        </div>
+        <div
+          class="c5"
+        >
+          Password Generator
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+`;
