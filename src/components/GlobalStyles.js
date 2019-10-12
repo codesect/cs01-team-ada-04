@@ -1,4 +1,10 @@
-import { createGlobalStyle } from 'styled-components/macro';
+import styled, { createGlobalStyle } from 'styled-components/macro';
+
+export const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: ${({ theme }) => theme.maxWidth};
+  padding: 0.5rem 1rem;
+`;
 
 export default createGlobalStyle`
   * {
