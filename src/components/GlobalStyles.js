@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export default createGlobalStyle`
-  * {
+  *, *::after, *::before {
     box-sizing: inherit;
   }
 
