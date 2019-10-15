@@ -10,7 +10,7 @@ const Main = styled.main`
 `;
 
 function App() {
-  const [length, setLength] = useState(20);
+  const [length] = useState(20);
   const [password, setPassword] = useState(generatePassword({ length }));
 
   const generateNewPassword = () => setPassword(generatePassword({ length }));
