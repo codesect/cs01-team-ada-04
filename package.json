@@ -40,6 +40,9 @@
       "last 1 safari version"
     ]
   },
+  "babelMacros": {
+    "styledComponents": {}
+  },
   "eslintConfig": {
     "env": {
       "cypress/globals": true

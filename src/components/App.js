@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
+import PasswordInput from './PasswordInput';
 import { Wrapper } from './GlobalStyles';
 import generatePassword from '../utils/generatePassword';
 
@@ -9,13 +10,17 @@ const Main = styled.main`
 `;
 
 function App() {
+  const [length] = useState(20);
+  const [password, setPassword] = useState(generatePassword({ length }));
+
+  const generateNewPassword = () => setPassword(generatePassword({ length }));
+
   return (
     <Main>
       <Wrapper>
         <h1>Password generator</h1>
-        <p>
-          Here is a random password: <code>{generatePassword()}</code>
-        </p>
+          <PasswordInput value={password} />
+        <button onClick={generateNewPassword}>New Password</button>
       </Wrapper>
     </Main>
   );
