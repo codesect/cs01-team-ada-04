@@ -17,7 +17,12 @@ function App() {
         <p>
           Here is a random password: <code>{generatePassword()}</code>
         </p>
-        <SwitchToggle />
+        <SwitchToggle
+          label="Uppercase letters"
+          name="uppercase"
+          isChecked
+          onToggle={console.log}
+        />
       </Wrapper>
     </Main>
   );

@@ -1,80 +1,85 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled from 'styled-components/macro';
+import PropTypes from 'prop-types';
 
-const Btn = styled.button`
-  box-sizing: initial;
-  display: inline-block;
-  outline: 0;
-  width: 8em;
-  height: 4em;
+// hiding it visually while keeping it accessible
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+`;
+
+const Label = styled.label`
+  align-items: center;
+  display: flex;
+  min-height: 2rem;
+  padding-left: 3.5rem;
   position: relative;
-  cursor: pointer;
   user-select: none;
-  background: #fbfbfb;
-  border-radius: 4em;
-  padding: 4px;
-  transition: all 0.4s ease;
-  border: 2px solid #e8eae9;
-  &:focus::after {
-    box-sizing: initial;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08),
-      inset 0px 0px 0px 3px #9c9c9c;
-  }
-  &:active::after {
-    box-sizing: initial;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08),
-      inset 0px 0px 0px 3px #9c9c9c;
+  &::before {
+    background-color: #fff;
+    border: 1px solid
+      ${({ checked, theme }) => (checked ? theme.button : '#ece9f1')};
+    border-radius: 100rem;
+    box-shadow: ${({ theme }) => theme.boxShadowSmall};
+    content: '';
+    display: block;
+    height: 1.75rem;
+    left: 0;
+    position: absolute;
+    top: 0.125rem;
+    transition: border-color ${({ theme }) => theme.transitionEase};
+    width: 3rem;
   }
   &::after {
-    left: 0;
-    position: relative;
-    display: block;
+    background-color: ${({ checked, theme }) =>
+      checked ? theme.button : '#ece9f1'};
+    border-radius: 50%;
     content: '';
-    width: 50%;
-    height: 100%;
-    border-radius: 4em;
-    background: #ecebed;
+    height: 1.5rem;
+    left: 0.125rem;
+    position: absolute;
+    top: 0.25rem;
+    transform: translateX(${props => (props.checked ? '1.25rem' : 0)});
+    transition: background-color ${({ theme }) => theme.transitionEase},
+      transform ${({ theme }) => theme.transitionEase};
+    width: 1.5rem;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
       padding 0.3s ease, margin 0.3s ease;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
   }
 `;
 
-const Input = styled.input`
-  outline: 0;
-  width: 8em;
-  height: 4em;
-  position: absolute;
-  cursor: pointer;
-  display: none;
-  &:checked + ${Btn}::after {
-    left: 50%;
-    background: #8555c5;
-  }
-`;
-class SwitchToggle extends React.Component {
-  state = {
-    toggleOn: false,
+function SwitchToggle({ className, isChecked, label, name, onToggle }) {
+  const [checked, setChecked] = useState(isChecked);
+  const toggleChecked = e => {
+    setChecked(e.target.checked);
+    onToggle(e.target.checked);
   };
-  handleToggle = () => {
-    this.setState(prevState => ({
-      toggleOn: !prevState.toggleOn,
-    }));
-  };
-  render() {
-    return (
-      <div>
-        <p>
-          the Current state is : {this.state.toggleOn === true ? 'On' : 'Off'}
-        </p>
-        <Input
-          type="checkbox"
-          checked={this.state.toggleOn}
-          onChange={() => {}}
-        />
-        <Btn onClick={this.handleToggle} />
-      </div>
-    );
-  }
+
+  return (
+    <Label className={className} checked={checked}>
+      <Checkbox name={name} checked={checked} onChange={toggleChecked} />
+      {label}
+    </Label>
+  );
 }
+
+SwitchToggle.defaultProps = {
+  isChecked: false,
+  onToggle: f => f,
+};
+
+SwitchToggle.propTypes = {
+  className: PropTypes.string,
+  isChecked: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  onToggle: PropTypes.func,
+};
+
 export default SwitchToggle;
