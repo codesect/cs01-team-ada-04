@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+=======
+
+# cypress
+cypress/screenshots
+cypress/videos
+
+# Local Netlify folder
+.netlify
+>>>>>>> 7b53e0fa26b0eab701ef563d4aa6a5f7102e3e82
