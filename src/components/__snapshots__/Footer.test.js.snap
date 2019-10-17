@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer /> matches snapshot 1`] = `
+.c1 {
+  margin: 0 auto;
+  max-width: 832px;
+  padding: 0.5rem 1rem;
+}
+
+.c0 {
+  background-color: #8555c5;
+  color: #fff;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.c0 p {
+  margin: 0;
+}
+
+<footer
+  class="c0"
+>
+  <div
+    class="c1"
+  >
+    <p>
+      Made by Aimen Aounallah and Zsolt Meszaros for CodeSect
+    </p>
+  </div>
+</footer>
+`;

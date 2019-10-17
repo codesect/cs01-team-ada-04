@@ -1,0 +1,128 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/project
+  docker:
+    - image: circleci/node:12
+
+aliases:
+  restore_cache: &restore_cache
+    restore_cache:
+      name: Restore NPM packages from cache
+      keys:
+        - v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
+
+  install_cypress_deps: &install_cypress_deps
+    run:
+      name: Install Cypress dependencies
+      command: sudo apt-get install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+
+  install_npm_packages: &install_npm_packages
+    run:
+      name: Install NPM dependencies
+      command: npm ci
+
+  save_cache: &save_cache
+    save_cache:
+      name: Save NPM packages to cache
+      key: v1-dependencies-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
+      paths:
+        - ~/.npm
+        - ~/.cache
+
+jobs:
+  install_deps:
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *install_cypress_deps
+      - run:
+          name: Update NPM
+          command: sudo npm install -g npm@latest
+      - <<: *restore_cache
+      - <<: *install_npm_packages
+      - run: npm run cy:verify
+      - <<: *save_cache
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *install_cypress_deps
+      - <<: *restore_cache
+      - <<: *install_npm_packages
+      - run:
+          name: Run tests
+          command: npm test
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *restore_cache
+      - <<: *install_npm_packages
+      - run:
+          name: Create production build
+          command: npm run build
+      - persist_to_workspace:
+          root: /home/circleci/project
+          paths:
+            - build
+
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/project
+      - <<: *restore_cache
+      - <<: *install_npm_packages
+      - run:
+          name: Install Netlify CLI
+          command: sudo npm install netlify-cli -g
+      - run:
+          name: Deploy preview to Netlify
+          command: netlify deploy --dir=/home/circleci/project/build --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
+
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/project
+      - <<: *restore_cache
+      - <<: *install_npm_packages
+      - run:
+          name: Install Netlify CLI
+          command: sudo npm install netlify-cli -g
+      - run:
+          name: Deploy site to Netlify
+          command: netlify deploy --prod --dir=/home/circleci/project/build --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - install_deps
+      - test:
+          requires:
+            - install_deps
+      - build:
+          requires:
+            - test
+      - deploy:
+          context: Netlify
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - build
+      - release:
+          context: Netlify
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build
