@@ -61,16 +61,7 @@ The build is minified and the filenames include the hashes. Your app is ready to
 
 ## Contributors
 
-<<<<<<< HEAD
-
-- [Zsolt Meszaros](https://github.com/zsoltime)
-- [Aimen Aounallah](https://github.com/Mizou9999)
-
-  > > > > > > > # 30a5802fa5c26e9d3158f58ae293bd84e44984c4
-
 - [Zsolt Meszaros](https://github.com/zsoltime)
 - [Aimen Aounallah](https://github.com/Mizou9999)
 
 [preview]: https://passr.netlify.com/
-
-> > > > > > > 1855a8196e6baa924bd04166a2a1f4f1f3183852
