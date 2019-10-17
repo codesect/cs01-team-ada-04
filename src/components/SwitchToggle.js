@@ -21,9 +21,9 @@ const Label = styled.label`
   position: relative;
   user-select: none;
   &::before {
-    background-color: #fff;
+    background-color: ${theme => theme.input};
     border: 1px solid
-      ${({ checked, theme }) => (checked ? theme.button : '#ece9f1')};
+      ${({ checked, theme }) => (checked ? theme.border : '#ece9f1')};
     border-radius: 100rem;
     box-shadow: ${({ theme }) => theme.boxShadowSmall};
     content: '';
@@ -37,7 +37,7 @@ const Label = styled.label`
   }
   &::after {
     background-color: ${({ checked, theme }) =>
-      checked ? theme.button : '#ece9f1'};
+      checked ? theme.borderActive : theme.border};
     border-radius: 50%;
     content: '';
     height: 1.5rem;
@@ -48,8 +48,6 @@ const Label = styled.label`
     transition: background-color ${({ theme }) => theme.transitionEase},
       transform ${({ theme }) => theme.transitionEase};
     width: 1.5rem;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      padding 0.3s ease, margin 0.3s ease;
   }
 `;
 
