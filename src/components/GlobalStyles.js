@@ -1,5 +1,16 @@
 import styled, { createGlobalStyle } from 'styled-components/macro';
 
+export const VisuallyHidden = styled.span`
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+`;
+
 export const Wrapper = styled.div`
   margin: 0 auto;
   max-width: ${({ theme }) => theme.maxWidth};
