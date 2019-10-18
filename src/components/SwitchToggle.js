@@ -23,7 +23,7 @@ const Label = styled.label`
   &::before {
     background-color: ${theme => theme.input};
     border: 1px solid
-      ${({ checked, theme }) => (checked ? theme.border : '#ece9f1')};
+      ${({ checked, theme }) => (checked ? theme.borderActive : theme.border)};
     border-radius: 100rem;
     box-shadow: ${({ theme }) => theme.boxShadowSmall};
     content: '';

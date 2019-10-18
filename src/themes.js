@@ -29,6 +29,7 @@ const defaultTheme = {
   borderActive: colors.purple,
   boxShadow: '0 6px 64px 0 rgba(0, 0, 0, 0.07)',
   boxShadowHeader: '0 0 10px rgba(0, 0, 0, 0.07)',
+  boxShadowSmall: '0 6px 24px rgba(0, 0, 0, 0.07)',
   breakpointS: '600px',
   button: colors.purple,
   buttonActive: colors.darkPurple,
