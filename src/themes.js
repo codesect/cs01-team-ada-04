@@ -43,6 +43,8 @@ const defaultTheme = {
   maxWidth: '832px',
   transition: '0.3s cubic-bezier(1, -0.65, 0, 2.25)',
   transitionEase: '0.3s ease-in-out',
+  transitionEaseOut:
+    ' 0.3s cubic-bezier(0.175, 1.03, 0.32, 1.366),padding 0.3s ease, margin 0.3s ease',
 };
 
 export default defaultTheme;

@@ -46,7 +46,7 @@ const Label = styled.label`
     top: 0.25rem;
     transform: translateX(${props => (props.checked ? '1.25rem' : 0)});
     transition: background-color ${({ theme }) => theme.transitionEase},
-      transform ${({ theme }) => theme.transitionEase};
+      transform ${({ theme }) => theme.transitionEaseOut};
     width: 1.5rem;
   }
 `;
