@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
@@ -20,9 +20,19 @@ const InputWrapper = styled.div`
     right: 1rem;
     top: 1px;
     width: 4ch;
+  }
 
-    @media (min-width: ${({ theme }) => theme.breakpointS}) {
+  @media (min-width: ${({ theme }) => theme.breakpointS}) {
+    background-color: ${({ theme }) => theme.input};
+    border: 1px solid ${({ theme }) => theme.border};
+    border-radius: ${({ theme }) => theme.borderRadius};
+    flex-wrap: nowrap;
+    padding-right: 1rem;
+
+    &::after {
       height: 4.75rem;
+      right: ${({ buttonsWidth }) => `${buttonsWidth + 32}px`};
+      top: 0;
     }
   }
 `;
@@ -42,6 +52,11 @@ const StyledInput = styled.input.attrs({
   width: 100%;
 
   @media (min-width: ${({ theme }) => theme.breakpointS}) {
+    border: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: none;
+    flex: 1;
     font-size: 2.5rem;
   }
 
@@ -56,12 +71,21 @@ const Buttons = styled.div`
   justify-content: space-evenly;
   margin-top: 1rem;
   width: 100%;
+
+  @media (min-width: ${({ theme }) => theme.breakpointS}) {
+    margin-top: 0;
+    width: auto;
+  }
 `;
 
 const RegenerateButton = styled.button`
   border-radius: 50%;
   display: flex;
   padding: 0.75rem;
+
+  @media (min-width: ${({ theme }) => theme.breakpointS}) {
+    margin-right: 1rem;
+  }
 
   path:first-child,
   path:last-child {
@@ -81,7 +105,19 @@ const RegenerateButton = styled.button`
 `;
 
 function PasswordInput({ generate, value }) {
+  const buttonsRef = useRef();
   const inputRef = useRef();
+  const [buttonsWidth, setButtonsWidth] = useState(null);
+
+  useLayoutEffect(() => {
+    const updateButtonsWidth = () =>
+      setButtonsWidth(buttonsRef.current.clientWidth);
+
+    window.addEventListener('resize', updateButtonsWidth);
+    updateButtonsWidth();
+
+    return () => window.removeEventListener('resize', updateButtonsWidth);
+  }, []);
 
   const copyToClipboard = () => {
     let isCopied;
@@ -113,9 +149,9 @@ function PasswordInput({ generate, value }) {
   };
 
   return (
-    <InputWrapper>
+    <InputWrapper buttonsWidth={buttonsWidth}>
       <StyledInput ref={inputRef} value={value} />
-      <Buttons>
+      <Buttons ref={buttonsRef}>
         <RegenerateButton onClick={generate}>
           <svg
             width="32"
