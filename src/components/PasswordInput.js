@@ -150,7 +150,11 @@ function PasswordInput({ generate, value }) {
 
   return (
     <InputWrapper buttonsWidth={buttonsWidth}>
-      <StyledInput ref={inputRef} value={value} />
+      <StyledInput
+        aria-label="Generated password"
+        ref={inputRef}
+        value={value}
+      />
       <Buttons ref={buttonsRef}>
         <RegenerateButton onClick={generate}>
           <svg
