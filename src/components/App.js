@@ -20,8 +20,7 @@ function App() {
     <Main>
       <Wrapper>
         <h1>Password generator</h1>
-        <PasswordInput value={password} />
-        <button onClick={generateNewPassword}>New Password</button>
+        <PasswordInput generate={generateNewPassword} value={password} />
         <SwitchToggle
           label="Uppercase letters"
           name="uppercase"
