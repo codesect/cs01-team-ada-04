@@ -78,11 +78,8 @@ jobs:
       - <<: *restore_cache
       - <<: *install_npm_packages
       - run:
-          name: Install Netlify CLI
-          command: sudo npm install netlify-cli -g
-      - run:
           name: Deploy preview to Netlify
-          command: netlify deploy --dir=/home/circleci/project/build --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
+          command: npx netlify-cli deploy --dir=/home/circleci/project/build --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
 
   release:
     <<: *defaults
@@ -93,11 +90,8 @@ jobs:
       - <<: *restore_cache
       - <<: *install_npm_packages
       - run:
-          name: Install Netlify CLI
-          command: sudo npm install netlify-cli -g
-      - run:
           name: Deploy site to Netlify
-          command: netlify deploy --prod --dir=/home/circleci/project/build --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
+          command: npx netlify-cli deploy --prod --dir=/home/circleci/project/build --auth=$NETLIFY_AUTH_TOKEN --site=$NETLIFY_SITE_ID
 
 workflows:
   version: 2
