@@ -11,7 +11,10 @@ describe('Home page', () => {
 
     cy.get('[name="generatedPassword"]')
       .invoke('val')
-      .should('have.length', 20);
+      .should('have.length', 24)
+      .then(val => {
+        expect(val).to.match(/[a-z]/gi);
+      });
   });
 
   it('generates a new password on button click', () => {
