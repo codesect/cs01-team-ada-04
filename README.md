@@ -12,7 +12,7 @@
 
 ## Challenges
 
-- [ ] As a user I can come back to the page at any time and generate new passwords with my previously used settings
+- [x] As a user I can come back to the page at any time and generate new passwords with my previously used settings
 - [ ] As a user I can see the strength of the generated password on a strength meter
 
 ## Tools Used
