@@ -37,7 +37,7 @@ function App() {
     hasNumbers: false,
     hasSymbols: false,
     hasUppercase: true,
-    length: 10,
+    length: 24,
   });
   const [hasNumbers, setHasNumbers] = useState(settings.hasNumbers);
   const [hasSymbols, setHasSymbols] = useState(settings.hasSymbols);
