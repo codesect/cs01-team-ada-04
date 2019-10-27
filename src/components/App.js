@@ -5,6 +5,7 @@ import PasswordInput from './PasswordInput';
 import SwitchToggle from './SwitchToggle';
 import { Wrapper } from './GlobalStyles';
 import generatePassword from '../utils/generatePassword';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const Main = styled.main`
   min-height: calc(100vh - 5.5rem - 2.125rem);
@@ -31,11 +32,18 @@ const SubTitle = styled.h2`
 `;
 
 function App() {
-  const [hasNumbers, setHasNumbers] = useState(false);
-  const [hasSymbols, setHasSymbols] = useState(false);
-  const [hasLowercase, setHasLowercase] = useState(true);
-  const [hasUppercase, setHasUppercase] = useState(true);
-  const [length, setLength] = useState(24);
+  const [settings, setSettings] = useLocalStorage('settings', {
+    hasLowercase: true,
+    hasNumbers: false,
+    hasSymbols: false,
+    hasUppercase: true,
+    length: 24,
+  });
+  const [hasNumbers, setHasNumbers] = useState(settings.hasNumbers);
+  const [hasSymbols, setHasSymbols] = useState(settings.hasSymbols);
+  const [hasLowercase, setHasLowercase] = useState(settings.hasLowercase);
+  const [hasUppercase, setHasUppercase] = useState(settings.hasUppercase);
+  const [length, setLength] = useState(settings.length);
   const [password, setPassword] = useState(() =>
     generatePassword({
       hasLowercase,
@@ -65,6 +73,14 @@ function App() {
 
   useEffect(() => {
     generateNewPassword();
+    setSettings({
+      hasLowercase,
+      hasNumbers,
+      hasSymbols,
+      hasUppercase,
+      length,
+    });
+    // eslint-disable-next-line
   }, [
     generateNewPassword,
     hasLowercase,

@@ -1,6 +1,7 @@
 describe('Password customisation', () => {
   beforeEach(() => {
     cy.visit('/');
+    cy.clearLocalStorage();
   });
 
   it('displays only lowercase letters if the only option ticked is lowercase letters', () => {
@@ -140,5 +141,61 @@ describe('Password customisation', () => {
     cy.get('[name="generatedPassword"]')
       .invoke('val')
       .should('have.length', 4);
+  });
+
+  it('saves settings to localStorage on change', () => {
+    const key = 'settings';
+    expect(localStorage.getItem('settings')).to.eq(null);
+
+    cy.get('label')
+      .first()
+      .click()
+      .next()
+      .click()
+      .next()
+      .click();
+
+    cy.get('label:last-child()').click();
+    cy.focused()
+      .type('{rightarrow}')
+      .type('{backspace}');
+
+    cy.log(localStorage.getItem(key));
+    cy.window().then(win => {
+      const actual = win.localStorage.getItem(key);
+      expect(actual).to.eq(
+        JSON.stringify({
+          hasLowercase: false,
+          hasNumbers: true,
+          hasSymbols: false,
+          hasUppercase: false,
+          length: 4,
+        }),
+      );
+    });
+
+    cy.reload(true);
+
+    cy.get('[name="generatedPassword"]')
+      .invoke('val')
+      .should('have.length', 4);
+
+    cy.get('input[type="checkbox"]')
+      .eq(0)
+      .should('not.be.checked');
+
+    cy.get('input[type="checkbox"]')
+      .eq(1)
+      .should('not.be.checked');
+
+    cy.get('input[type="checkbox"]')
+      .eq(2)
+      .should('be.checked');
+
+    cy.get('input[type="checkbox"]')
+      .eq(3)
+      .should('not.be.checked');
+
+    cy.get('label:last-child() input').should('have.value', '4');
   });
 });
