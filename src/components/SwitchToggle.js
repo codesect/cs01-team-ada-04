@@ -20,10 +20,12 @@ const Label = styled.label`
   padding-left: 3.5rem;
   position: relative;
   user-select: none;
+
   &::before {
-    background-color: ${theme => theme.input};
+    background-color: ${({ theme }) => theme.input};
     border: 1px solid
-      ${({ checked, theme }) => (checked ? theme.borderActive : theme.border)};
+      ${({ checked, theme }) =>
+        checked ? theme.borderActive : theme.borderToggle};
     border-radius: 100rem;
     box-shadow: ${({ theme }) => theme.boxShadowSmall};
     content: '';
@@ -35,9 +37,14 @@ const Label = styled.label`
     transition: border-color ${({ theme }) => theme.transitionEase};
     width: 3rem;
   }
+
+  &:focus-within::before {
+    outline: thin dotted black;
+  }
+
   &::after {
     background-color: ${({ checked, theme }) =>
-      checked ? theme.borderActive : theme.border};
+      checked ? theme.borderActive : theme.borderToggle};
     border-radius: 50%;
     content: '';
     height: 1.5rem;
