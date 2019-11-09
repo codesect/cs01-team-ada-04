@@ -6,6 +6,7 @@ import SwitchToggle from './SwitchToggle';
 import { Wrapper } from './GlobalStyles';
 import generatePassword from '../utils/generatePassword';
 import useLocalStorage from '../hooks/useLocalStorage';
+import Range from './Range';
 
 const Main = styled.main`
   min-height: calc(100vh - 5.5rem - 2.125rem);
@@ -121,16 +122,14 @@ function App() {
             isChecked={hasSymbols}
             onToggle={setHasSymbols}
           />
-          <label>
-            <input
-              type="number"
-              min="4"
-              max="99"
-              value={length}
-              onChange={e => setLength(+e.target.value)}
-            />
-            Length
-          </label>
+
+          <Range
+            id="length"
+            min={4}
+            max={100}
+            value={length}
+            onChange={e => setLength(parseInt(e.target.value))}
+          />
         </Options>
       </Wrapper>
     </Main>
