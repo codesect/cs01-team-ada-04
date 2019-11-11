@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 
 import PasswordInput from './PasswordInput';
+import Range from './Range';
 import SwitchToggle from './SwitchToggle';
 import { Wrapper } from './GlobalStyles';
 import generatePassword from '../utils/generatePassword';
@@ -121,16 +122,14 @@ function App() {
             isChecked={hasSymbols}
             onToggle={setHasSymbols}
           />
-          <label>
-            <input
-              type="number"
-              min="4"
-              max="99"
-              value={length}
-              onChange={e => setLength(+e.target.value)}
-            />
-            Length
-          </label>
+          <Range
+            aria-label="Password length"
+            id="length"
+            min={4}
+            max={99}
+            onChange={setLength}
+            value={length}
+          />
         </Options>
       </Wrapper>
     </Main>
