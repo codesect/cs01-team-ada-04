@@ -1,7 +1,6 @@
 import calculatePasswordStrength, {
   calculateCharsetLength,
   calculateEntropy,
-  calculatePasswordEntropy,
   scale,
 } from './calculatePasswordStrength';
 
@@ -55,13 +54,7 @@ describe('calculateCharsetLength', () => {
 
 describe('calculateEntropy', () => {
   it('returns a number', () => {
-    expect(typeof calculateEntropy(26, 8)).toBe('number');
-  });
-});
-
-describe('calculatePasswordEntropy', () => {
-  it('returns a number', () => {
-    expect(typeof calculatePasswordEntropy('password')).toBe('number');
+    expect(typeof calculateEntropy('password')).toBe('number');
   });
 });
 
