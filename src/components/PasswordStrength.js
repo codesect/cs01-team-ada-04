@@ -34,14 +34,9 @@ const PasswordMessage = styled.div`
   text-align: center;
 `;
 
-function PasswordStrength({ password }) {
-  function getScore(pass) {
-    return pass.length;
-  }
-
+function PasswordStrength({ score }) {
   let message;
   let strength;
-  const score = getScore(password);
 
   if (score < 20) {
     message = 'Really weak password';
@@ -71,7 +66,7 @@ function PasswordStrength({ password }) {
 }
 
 PasswordStrength.propTypes = {
-  password: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default PasswordStrength;
