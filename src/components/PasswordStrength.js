@@ -30,7 +30,7 @@ const PasswordMeter = styled.div`
 `;
 
 const PasswordMessage = styled.div`
-  color: ${({ strength, theme }) => theme.password[strength]};
+  color: ${({ strength, theme }) => theme.password[`${strength}Text`]};
   text-align: center;
 `;
 
