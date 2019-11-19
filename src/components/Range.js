@@ -56,13 +56,13 @@ const Input = styled.input`
     background-color: ${({ theme }) => theme.footerBackground};
   }
   &:focus {
-    outline-style: none;
+    outline: thin dotted;
   }
   &:-moz-focus-outer {
     border: 0;
   }
 `;
-function Range({ id, min, max, value, step, onChange }) {
+function Range({ id, min, max, value, onChange }) {
   return (
     <Container>
       <output htmlFor={id}>{value}</output>
