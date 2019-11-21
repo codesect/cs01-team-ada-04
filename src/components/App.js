@@ -2,10 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 
 import PasswordInput from './PasswordInput';
+import PasswordStrength from './PasswordStrength';
 import SwitchToggle from './SwitchToggle';
 import { Wrapper } from './GlobalStyles';
+
+import calculatePasswordStrength from '../utils/calculatePasswordStrength';
 import generatePassword from '../utils/generatePassword';
 import useLocalStorage from '../hooks/useLocalStorage';
+import Range from './Range';
 
 const Main = styled.main`
   min-height: calc(100vh - 5.5rem - 2.125rem);
@@ -34,8 +38,8 @@ const SubTitle = styled.h2`
 function App() {
   const [settings, setSettings] = useLocalStorage('settings', {
     hasLowercase: true,
-    hasNumbers: false,
-    hasSymbols: false,
+    hasNumbers: true,
+    hasSymbols: true,
     hasUppercase: true,
     length: 24,
   });
@@ -54,29 +58,36 @@ function App() {
         length,
       });
     } catch (e) {
-      return '';
+      return ' ';
     }
   });
+  const [strengthScore, setStrengthScore] = useState(
+    calculatePasswordStrength(password),
+  );
 
   const generateNewPassword = useCallback(() => {
+    let newPassword = '';
+    // TODO: Notify user that they must have at least one option ticked?
+
     if (hasLowercase || hasNumbers || hasSymbols || hasUppercase) {
-      setPassword(
-        generatePassword({
-          hasLowercase,
-          hasNumbers,
-          hasSymbols,
-          hasUppercase,
-          length,
-        }),
-      );
-    } else {
-      // TODO: Notify user that they must have at least one option ticked?
-      setPassword('');
+      newPassword = generatePassword({
+        hasLowercase,
+        hasNumbers,
+        hasSymbols,
+        hasUppercase,
+        length,
+      });
     }
+
+    setPassword(newPassword);
+
+    return newPassword;
   }, [hasLowercase, hasNumbers, hasSymbols, hasUppercase, length]);
 
   useEffect(() => {
-    generateNewPassword();
+    const newPassword = generateNewPassword();
+
+    setStrengthScore(calculatePasswordStrength(newPassword));
     setSettings({
       hasLowercase,
       hasNumbers,
@@ -99,6 +110,7 @@ function App() {
       <Wrapper>
         <h1>Password generator</h1>
         <PasswordInput generate={generateNewPassword} value={password} />
+        <PasswordStrength score={strengthScore} />
         <SubTitle>Customise Your Password</SubTitle>
         <Options>
           <SwitchToggle
@@ -125,16 +137,15 @@ function App() {
             isChecked={hasSymbols}
             onToggle={setHasSymbols}
           />
-          <label>
-            <input
-              type="number"
-              min="4"
-              max="99"
-              value={length}
-              onChange={e => setLength(+e.target.value)}
-            />
-            Length
-          </label>
+
+          <Range
+            id="length"
+            label="Password Length"
+            min={4}
+            max={100}
+            value={length}
+            onChange={e => setLength(parseInt(e.target.value))}
+          />
         </Options>
       </Wrapper>
     </Main>
