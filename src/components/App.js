@@ -44,15 +44,19 @@ function App() {
   const [hasLowercase, setHasLowercase] = useState(settings.hasLowercase);
   const [hasUppercase, setHasUppercase] = useState(settings.hasUppercase);
   const [length, setLength] = useState(settings.length);
-  const [password, setPassword] = useState(() =>
-    generatePassword({
-      hasLowercase,
-      hasNumbers,
-      hasSymbols,
-      hasUppercase,
-      length,
-    }),
-  );
+  const [password, setPassword] = useState(() => {
+    try {
+      return generatePassword({
+        hasLowercase,
+        hasNumbers,
+        hasSymbols,
+        hasUppercase,
+        length,
+      });
+    } catch (e) {
+      return '';
+    }
+  });
 
   const generateNewPassword = useCallback(() => {
     if (hasLowercase || hasNumbers || hasSymbols || hasUppercase) {
