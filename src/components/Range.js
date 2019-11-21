@@ -62,7 +62,7 @@ const Input = styled.input`
     border: 0;
   }
 `;
-function Range({ id, min, max, value, onChange }) {
+function Range({ id, min, max, value, onChange, step }) {
   return (
     <Container>
       <output htmlFor={id}>{value}</output>
@@ -77,6 +77,7 @@ function Range({ id, min, max, value, onChange }) {
         max={max}
         onChange={onChange}
         value={value}
+        step={step}
       />
     </Container>
   );
@@ -85,11 +86,11 @@ Range.defaultProps = {
   step: 1,
 };
 Range.propTypes = {
-  id: PropTypes.string,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  onChange: PropTypes.func,
-  value: PropTypes.number,
+  id: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 export default Range;
