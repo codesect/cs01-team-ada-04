@@ -67,7 +67,6 @@ function Range({ id, min, max, value, onChange, step }) {
     <Container>
       <output htmlFor={id}>{value}</output>
       <Input
-        aria-label="Range Slider"
         type="range"
         id={id}
         aria-valuemin={min}
