@@ -57,7 +57,9 @@ function App() {
         hasUppercase,
         length,
       });
-    } catch (e) {}
+    } catch (e) {
+      return ' ';
+    }
   });
   const [strengthScore, setStrengthScore] = useState(
     calculatePasswordStrength(password),
