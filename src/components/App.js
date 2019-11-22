@@ -144,7 +144,7 @@ function App() {
             min={4}
             max={100}
             value={length}
-            onChange={e => setLength(parseInt(e.target.value))}
+            onChange={setLength}
           />
         </Options>
       </Wrapper>

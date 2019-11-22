@@ -75,7 +75,7 @@ function Range({ id, min, max, value, onChange, step, label }) {
         aria-valuenow={value}
         min={min}
         max={max}
-        onChange={onChange}
+        onChange={e => onChange(parseInt(e.target.value))}
         value={value}
         step={step}
       />
