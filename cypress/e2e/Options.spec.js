@@ -1,3 +1,5 @@
+import generatePassword from '../../src/utils/generatePassword';
+
 describe('Password customisation', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -133,19 +135,37 @@ describe('Password customisation', () => {
   });
 
   it('changes password length if length option is changed', () => {
-    cy.get('label:last-child()').click();
-    cy.focused()
-      .type('{rightarrow}')
-      .type('{backspace}');
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      'value',
+    ).set;
+    const nextLength = 5;
 
-    cy.get('[name="generatedPassword"]')
+    cy.get('input[type="range"]').then($range => {
+      const range = $range[0];
+      nativeInputValueSetter.call(range, nextLength);
+
+      range.dispatchEvent(
+        new Event('change', {
+          value: nextLength,
+          bubbles: true,
+        }),
+      );
+    });
+    cy.get('[name ="generatedPassword"]')
       .invoke('val')
-      .should('have.length', 4);
+      .should('have.length', nextLength);
   });
 
   it('saves settings to localStorage on change', () => {
     const key = 'settings';
     expect(localStorage.getItem('settings')).to.eq(null);
+
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+      window.HTMLInputElement.prototype,
+      'value',
+    ).set;
+    const nextLength = 5;
 
     cy.get('label')
       .first()
@@ -155,11 +175,17 @@ describe('Password customisation', () => {
       .next()
       .click();
 
-    cy.get('label:last-child()').click();
-    cy.focused()
-      .type('{rightarrow}')
-      .type('{backspace}');
+    cy.get('input[type="range"]').then($range => {
+      const range = $range[0];
+      nativeInputValueSetter.call(range, 4);
 
+      range.dispatchEvent(
+        new Event('change', {
+          value: 4,
+          bubbles: true,
+        }),
+      );
+    });
     cy.log(localStorage.getItem(key));
     cy.window().then(win => {
       const actual = win.localStorage.getItem(key);
@@ -196,6 +222,6 @@ describe('Password customisation', () => {
       .eq(3)
       .should('not.be.checked');
 
-    cy.get('label:last-child() input').should('have.value', '4');
+    cy.get('input[type="range"]').should('have.value', '4');
   });
 });
