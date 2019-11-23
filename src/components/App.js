@@ -38,8 +38,8 @@ const SubTitle = styled.h2`
 function App() {
   const [settings, setSettings] = useLocalStorage('settings', {
     hasLowercase: true,
-    hasNumbers: true,
-    hasSymbols: true,
+    hasNumbers: false,
+    hasSymbols: false,
     hasUppercase: true,
     length: 24,
   });

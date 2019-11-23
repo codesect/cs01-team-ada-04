@@ -62,12 +62,11 @@ const Input = styled.input`
     border: 0;
   }
 `;
-function Range({ id, min, max, value, onChange, step, label }) {
+function Range({ id, min, max, value, onChange, step }) {
   return (
     <Container>
       <output htmlFor={id}>{value}</output>
       <Input
-        aria-label={label}
         type="range"
         id={id}
         aria-valuemin={min}
@@ -75,7 +74,7 @@ function Range({ id, min, max, value, onChange, step, label }) {
         aria-valuenow={value}
         min={min}
         max={max}
-        onChange={e => onChange(parseInt(e.target.value))}
+        onChange={onChange}
         value={value}
         step={step}
       />
