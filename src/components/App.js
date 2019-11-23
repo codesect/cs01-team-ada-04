@@ -140,10 +140,11 @@ function App() {
 
           <Range
             id="length"
+            label="Password Length"
             min={4}
             max={100}
             value={length}
-            onChange={e => setLength(parseInt(e.target.value))}
+            onChange={setLength}
           />
         </Options>
       </Wrapper>

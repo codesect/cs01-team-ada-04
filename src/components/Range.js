@@ -30,7 +30,6 @@ const Input = styled.input`
     align-self: center;
     background-color: ${({ theme }) => theme.button};
     cursor: pointer;
-    -webkit-appearance: none;
     margin-top: -10px;
   }
   &::-moz-range-thumb {
@@ -40,7 +39,6 @@ const Input = styled.input`
     align-self: center;
     background-color: ${({ theme }) => theme.button};
     cursor: pointer;
-    -webkit-appearance: none;
     margin-top: -10px;
     border: 0;
   }
