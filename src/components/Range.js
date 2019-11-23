@@ -27,7 +27,7 @@ const track = css`
   width: 100%;
 `;
 
-const RangeWrapper = styled.div`
+const Container = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
@@ -35,7 +35,6 @@ const RangeWrapper = styled.div`
 
 const Output = styled.output`
   background-color: ${({ theme }) => theme.input};
-  border: 1px solid ${({ theme }) => theme.border};
   font-family: ${({ theme }) => theme.fontFamilyMono};
   min-width: 3rem;
   padding: 0.5rem;
@@ -101,8 +100,8 @@ function Range({ id, label, max, min, onChange, step, value, ...props }) {
 
   return (
     <>
-      {label && <label for={id}>{label}</label>}
-      <RangeWrapper>
+      {label && <label htmlFor={id}>{label}</label>}
+      <Container>
         <Output htmlFor={id}>{value}</Output>
         <Input
           type="range"
@@ -118,7 +117,7 @@ function Range({ id, label, max, min, onChange, step, value, ...props }) {
           value={value}
           {...props}
         />
-      </RangeWrapper>
+      </Container>
     </>
   );
 }
@@ -129,12 +128,12 @@ Range.defaultProps = {
 
 Range.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  max: PropTypes.number,
-  min: PropTypes.number,
+  label: PropTypes.string.isRequired,
+  max: PropTypes.number.isRequired,
+  min: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   step: PropTypes.number,
-  value: PropTypes.number,
+  value: PropTypes.number.isRequired,
 };
 
 export default Range;
