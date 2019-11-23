@@ -9,6 +9,7 @@ import { Wrapper } from './GlobalStyles';
 import calculatePasswordStrength from '../utils/calculatePasswordStrength';
 import generatePassword from '../utils/generatePassword';
 import useLocalStorage from '../hooks/useLocalStorage';
+import Range from './Range';
 
 const Main = styled.main`
   min-height: calc(100vh - 5.5rem - 2.125rem);
@@ -47,15 +48,19 @@ function App() {
   const [hasLowercase, setHasLowercase] = useState(settings.hasLowercase);
   const [hasUppercase, setHasUppercase] = useState(settings.hasUppercase);
   const [length, setLength] = useState(settings.length);
-  const [password, setPassword] = useState(() =>
-    generatePassword({
-      hasLowercase,
-      hasNumbers,
-      hasSymbols,
-      hasUppercase,
-      length,
-    }),
-  );
+  const [password, setPassword] = useState(() => {
+    try {
+      return generatePassword({
+        hasLowercase,
+        hasNumbers,
+        hasSymbols,
+        hasUppercase,
+        length,
+      });
+    } catch (e) {
+      return ' ';
+    }
+  });
   const [strengthScore, setStrengthScore] = useState(
     calculatePasswordStrength(password),
   );
@@ -132,16 +137,15 @@ function App() {
             isChecked={hasSymbols}
             onToggle={setHasSymbols}
           />
-          <label>
-            <input
-              type="number"
-              min="4"
-              max="99"
-              value={length}
-              onChange={e => setLength(+e.target.value)}
-            />
-            Length
-          </label>
+
+          <Range
+            id="length"
+            label="Password Length"
+            min={4}
+            max={100}
+            value={length}
+            onChange={setLength}
+          />
         </Options>
       </Wrapper>
     </Main>
