@@ -129,7 +129,7 @@ Range.defaultProps = {
 
 Range.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   max: PropTypes.number.isRequired,
   min: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
