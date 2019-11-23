@@ -76,7 +76,8 @@ const Input = styled.input`
 
   &::-webkit-slider-thumb {
     ${thumb};
-    transform: translateY(calc(-50% + 0.125rem));
+    transform: ${({ theme }) =>
+      `translateY(calc(-50% + ${theme.rangeTrackHeight} / 2))`};
   }
   &::-moz-range-thumb {
     ${thumb};
