@@ -59,6 +59,8 @@ const defaultTheme = {
   transition: '0.3s cubic-bezier(1, -0.65, 0, 2.25)',
   transitionEase: '0.3s ease-in-out',
   transitionEaseOut: '0.3s cubic-bezier(0.175, 1, 0.3, 1.35)',
+  blackBg: colors.black,
+  white: colors.white,
 };
 
 export default defaultTheme;

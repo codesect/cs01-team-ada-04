@@ -48,6 +48,7 @@ function App() {
   const [hasLowercase, setHasLowercase] = useState(settings.hasLowercase);
   const [hasUppercase, setHasUppercase] = useState(settings.hasUppercase);
   const [length, setLength] = useState(settings.length);
+
   const [password, setPassword] = useState(() => {
     try {
       return generatePassword({
