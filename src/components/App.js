@@ -3,13 +3,13 @@ import styled from 'styled-components/macro';
 
 import PasswordInput from './PasswordInput';
 import PasswordStrength from './PasswordStrength';
+import Range from './Range';
 import SwitchToggle from './SwitchToggle';
 import { Wrapper } from './GlobalStyles';
 
 import calculatePasswordStrength from '../utils/calculatePasswordStrength';
 import generatePassword from '../utils/generatePassword';
 import useLocalStorage from '../hooks/useLocalStorage';
-import Range from './Range';
 
 const Main = styled.main`
   min-height: calc(100vh - 5.5rem - 2.125rem);
@@ -137,14 +137,13 @@ function App() {
             isChecked={hasSymbols}
             onToggle={setHasSymbols}
           />
-
           <Range
+            aria-label="Password length"
             id="length"
-            label="Password Length"
             min={4}
-            max={100}
-            value={length}
+            max={99}
             onChange={setLength}
+            value={length}
           />
         </Options>
       </Wrapper>

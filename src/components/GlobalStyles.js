@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 `;
 
 export default createGlobalStyle`
- *, *::after, *::before  {
+ *, *::after, *::before {
     box-sizing: inherit;
   }
 
@@ -41,7 +41,7 @@ export default createGlobalStyle`
     font-weight: 600;
   }
 
-  button, input {
+  button, input, output {
     border: 1px solid ${({ theme }) => theme.border};
     border-radius: ${({ theme }) => theme.borderRadius};
     font-family: inherit;

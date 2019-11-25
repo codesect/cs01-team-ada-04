@@ -38,11 +38,15 @@ const defaultTheme = {
   button: colors.purple,
   buttonActive: colors.darkPurple,
   buttonText: colors.white,
+  fontFamilyMono:
+    '"Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
   footerBackground: colors.purple,
   footerText: colors.white,
   headerBackground: colors.white,
   input: colors.white,
   logoText: colors.purple,
+  rangeThumbSize: '1.25rem',
+  rangeTrackHeight: '0.25rem',
   text: colors.darkPurple,
   maxWidth: '832px',
   password: {
