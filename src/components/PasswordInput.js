@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
-import Alert from '@reach/alert';
 
+import useToast from './Toast';
 import { VisuallyHidden } from './GlobalStyles';
 
 const InputWrapper = styled.div`
@@ -105,36 +105,11 @@ const RegenerateButton = styled.button`
   }
 `;
 
-const Toast = styled(Alert)`
-  background-color: #333;
-  bottom: 0;
-  box-shadow: ${({ theme }) => theme.boxShadowSmall};
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  font-size: 0.875rem;
-  font-weight: 300;
-  line-height: 1.25;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-`;
-
-const ToastWrapper = styled.div`
-  bottom: 2.5rem;
-  display: flex;
-  flex-direction: column-reverse;
-  height: 100%;
-  left: 1rem;
-  max-width: 12rem;
-  position: fixed;
-  width: 100%;
-  z-index: 1;
-`;
-
 function PasswordInput({ generate, value }) {
   const buttonsRef = useRef();
   const inputRef = useRef();
   const [buttonsWidth, setButtonsWidth] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [Toaster, addToast] = useToast();
 
   useLayoutEffect(() => {
     const updateButtonsWidth = () =>
@@ -146,16 +121,6 @@ function PasswordInput({ generate, value }) {
     return () => window.removeEventListener('resize', updateButtonsWidth);
   }, []);
 
-  function popToast() {
-    setMessages(prevMessages => [
-      ...prevMessages,
-      `Password is copied to clipboard ${prevMessages.length}`,
-    ]);
-    window.setTimeout(() => {
-      setMessages(prevMessages => prevMessages.slice(1));
-    }, 30000);
-  }
-
   const copyToClipboard = () => {
     let isCopied;
 
@@ -166,7 +131,8 @@ function PasswordInput({ generate, value }) {
 
       inputRef.current.blur();
       document.getSelection().removeAllRanges();
-      popToast();
+
+      addToast('Password is copied to clipboard');
     } catch (e) {
       // TODO: tell the user to copy the password themselves,
       // as the text is already selected
@@ -217,11 +183,7 @@ function PasswordInput({ generate, value }) {
           </button>
         </Buttons>
       </InputWrapper>
-      <ToastWrapper>
-        {messages.map((message, index) => (
-          <Toast key={index}>{message}</Toast>
-        ))}
-      </ToastWrapper>
+      <Toaster />
     </>
   );
 }
