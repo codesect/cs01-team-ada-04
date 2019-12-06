@@ -18,7 +18,11 @@ const animation = css`
   animation: ${slideIn} ${({ theme }) => theme.transitionEaseOut};
 `;
 
-const StyledAlert = styled(Alert)`
+// `styled-components` throws an error "Warning: Received `true` for a
+// non-boolean attribute `last`." if we pass last to `Alert`.
+const SanitizedAlert = ({ last, ...props }) => <Alert {...props} />;
+
+const StyledAlert = styled(SanitizedAlert)`
   ${({ last }) => last && animation};
   background-color: ${({ theme }) => theme.toastBg};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -30,6 +34,7 @@ const StyledAlert = styled(Alert)`
   line-height: 1.25;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
+  pointer-events: auto;
   text-align: center;
 `;
 
@@ -40,6 +45,7 @@ const ToastWrapper = styled.div`
   height: 100%;
   left: 1rem;
   max-width: 10rem;
+  pointer-events: none;
   position: fixed;
   width: 100%;
   z-index: 1;

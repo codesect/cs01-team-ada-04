@@ -11,7 +11,9 @@ describe('<PasswordInput />', () => {
       <PasswordInputWithTheme generate={f => f} value="test value" />,
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find('input')).toMatchSnapshot('input field');
+    expect(wrapper.find('button').first()).toMatchSnapshot('regenerate button');
+    expect(wrapper.find('button').last()).toMatchSnapshot('copy button');
   });
 
   it('copies password to clipboard when copy button is clicked', () => {
