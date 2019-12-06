@@ -122,20 +122,17 @@ function PasswordInput({ generate, value }) {
   }, []);
 
   const copyToClipboard = () => {
-    let isCopied;
-
-    inputRef.current.select();
-
     try {
-      isCopied = document.execCommand('copy');
-
+      inputRef.current.select();
+      document.execCommand('copy');
       inputRef.current.blur();
       document.getSelection().removeAllRanges();
 
       addToast('Password is copied to clipboard');
     } catch (e) {
-      // TODO: tell the user to copy the password themselves,
-      // as the text is already selected
+      addToast(
+        'Copy to clipboard failed. Your password is already selected, ready to copy.',
+      );
       // TODO: check if user is on phone, Mac, or PC?
       // so we can show them the correct instructions
       // navigator.platform.indexOf('Mac') > -1
@@ -148,8 +145,6 @@ function PasswordInput({ generate, value }) {
       //   }
       // }
     }
-
-    console.log(isCopied ? 'Copied' : 'Oops, something went wrong');
   };
 
   return (
