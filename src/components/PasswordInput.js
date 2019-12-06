@@ -14,9 +14,10 @@ const InputWrapper = styled.div`
 
   &::after {
     background-image: ${({ theme }) =>
-      `linear-gradient(to right, transparent, ${theme.input})`};
+      `linear-gradient(to right, rgba(255, 255, 255, 0), ${theme.input})`};
     content: '';
     height: 4rem;
+    pointer-events: none;
     position: absolute;
     right: 1rem;
     top: 1px;

@@ -1,3 +1,27 @@
+/**
+ * Helper function to change value of a slider. It sets the value of the DOM
+ * node and fires a change event on it.
+ *
+ * We need this because `onChange` is not triggered with React using a simple
+ * `.invoke('val', value).trigger('change');`
+ *
+ * https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-onchange-event-in-react-js/46012210#46012210
+ */
+function setValueAndFireChange(input, value) {
+  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    'value',
+  ).set;
+
+  nativeInputValueSetter.call(input, value);
+  input.dispatchEvent(
+    new Event('change', {
+      value,
+      bubbles: true,
+    }),
+  );
+}
+
 describe('Password customisation', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -132,19 +156,22 @@ describe('Password customisation', () => {
       .should('have.length', 0);
   });
 
-  it('changes password length if length option is changed', () => {
-    cy.get('label:last-child()').click();
-    cy.focused()
-      .type('{rightarrow}')
-      .type('{backspace}');
+  it('changes password length if slider is changed', () => {
+    const newLength = 5;
 
-    cy.get('[name="generatedPassword"]')
+    cy.get('input[type="range"]').then(([rangeInput]) => {
+      setValueAndFireChange(rangeInput, newLength);
+    });
+
+    cy.get('[name ="generatedPassword"]')
       .invoke('val')
-      .should('have.length', 4);
+      .should('have.length', newLength);
   });
 
   it('saves settings to localStorage on change', () => {
     const key = 'settings';
+    const newLength = 5;
+
     expect(localStorage.getItem('settings')).to.eq(null);
 
     cy.get('label')
@@ -155,12 +182,12 @@ describe('Password customisation', () => {
       .next()
       .click();
 
-    cy.get('label:last-child()').click();
-    cy.focused()
-      .type('{rightarrow}')
-      .type('{backspace}');
+    cy.get('input[type="range"]').then(([rangeInput]) => {
+      setValueAndFireChange(rangeInput, newLength);
+    });
 
     cy.log(localStorage.getItem(key));
+
     cy.window().then(win => {
       const actual = win.localStorage.getItem(key);
       expect(actual).to.eq(
@@ -169,7 +196,7 @@ describe('Password customisation', () => {
           hasNumbers: true,
           hasSymbols: false,
           hasUppercase: false,
-          length: 4,
+          length: newLength,
         }),
       );
     });
@@ -178,7 +205,7 @@ describe('Password customisation', () => {
 
     cy.get('[name="generatedPassword"]')
       .invoke('val')
-      .should('have.length', 4);
+      .should('have.length', newLength);
 
     cy.get('input[type="checkbox"]')
       .eq(0)
@@ -196,6 +223,6 @@ describe('Password customisation', () => {
       .eq(3)
       .should('not.be.checked');
 
-    cy.get('label:last-child() input').should('have.value', '4');
+    cy.get('input[type="range"]').should('have.value', newLength.toString());
   });
 });

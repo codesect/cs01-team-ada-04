@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 
 import PasswordInput from './PasswordInput';
 import PasswordStrength from './PasswordStrength';
+import Range from './Range';
 import SwitchToggle from './SwitchToggle';
 import { Wrapper } from './GlobalStyles';
 
@@ -47,15 +48,19 @@ function App() {
   const [hasLowercase, setHasLowercase] = useState(settings.hasLowercase);
   const [hasUppercase, setHasUppercase] = useState(settings.hasUppercase);
   const [length, setLength] = useState(settings.length);
-  const [password, setPassword] = useState(() =>
-    generatePassword({
-      hasLowercase,
-      hasNumbers,
-      hasSymbols,
-      hasUppercase,
-      length,
-    }),
-  );
+  const [password, setPassword] = useState(() => {
+    try {
+      return generatePassword({
+        hasLowercase,
+        hasNumbers,
+        hasSymbols,
+        hasUppercase,
+        length,
+      });
+    } catch (e) {
+      return ' ';
+    }
+  });
   const [strengthScore, setStrengthScore] = useState(
     calculatePasswordStrength(password),
   );
@@ -132,16 +137,14 @@ function App() {
             isChecked={hasSymbols}
             onToggle={setHasSymbols}
           />
-          <label>
-            <input
-              type="number"
-              min="4"
-              max="99"
-              value={length}
-              onChange={e => setLength(+e.target.value)}
-            />
-            Length
-          </label>
+          <Range
+            aria-label="Password length"
+            id="length"
+            min={4}
+            max={99}
+            onChange={setLength}
+            value={length}
+          />
         </Options>
       </Wrapper>
     </Main>

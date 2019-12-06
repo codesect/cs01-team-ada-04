@@ -5,7 +5,7 @@
 ## User Stories
 
 - [x] As a user I can see a randomly generated password on page load
-- [ ] As a user I can change the length of the generated password
+- [x] As a user I can change the length of the generated password
 - [x] As a user I can include/exclude uppercase letters, lowercase letters, numbers, and symbols
 - [x] As a user I can see a new password whenever I make a change in my settings
 - [x] As a user I can click on a button to copy the password to clipboard without selecting it first
