@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
+import useToast from './Toast';
 import { VisuallyHidden } from './GlobalStyles';
 
 const InputWrapper = styled.div`
@@ -109,6 +110,7 @@ function PasswordInput({ generate, value }) {
   const buttonsRef = useRef();
   const inputRef = useRef();
   const [buttonsWidth, setButtonsWidth] = useState(null);
+  const [Toaster, addToast] = useToast();
 
   useLayoutEffect(() => {
     const updateButtonsWidth = () =>
@@ -121,18 +123,17 @@ function PasswordInput({ generate, value }) {
   }, []);
 
   const copyToClipboard = () => {
-    let isCopied;
-
-    inputRef.current.select();
-
     try {
-      isCopied = document.execCommand('copy');
-
+      inputRef.current.select();
+      document.execCommand('copy');
       inputRef.current.blur();
       document.getSelection().removeAllRanges();
+
+      addToast('Password is copied to clipboard');
     } catch (e) {
-      // TODO: tell the user to copy the password themselves,
-      // as the text is already selected
+      addToast(
+        'Copy to clipboard failed. Your password is already selected, ready to copy.',
+      );
       // TODO: check if user is on phone, Mac, or PC?
       // so we can show them the correct instructions
       // navigator.platform.indexOf('Mac') > -1
@@ -145,40 +146,41 @@ function PasswordInput({ generate, value }) {
       //   }
       // }
     }
-
-    console.log(isCopied ? 'Copied' : 'Oops, something went wrong');
   };
 
   return (
-    <InputWrapper buttonsWidth={buttonsWidth}>
-      <StyledInput
-        aria-label="Generated password"
-        ref={inputRef}
-        value={value}
-      />
-      <Buttons ref={buttonsRef}>
-        <RegenerateButton onClick={generate}>
-          <svg
-            width="32"
-            height="32"
-            viewBox="-5 -5 36 36"
-            fill="#fff"
-            xmlns="http://www.w3.org/2000/svg"
+    <>
+      <InputWrapper buttonsWidth={buttonsWidth}>
+        <StyledInput
+          aria-label="Generated password"
+          ref={inputRef}
+          value={value}
+        />
+        <Buttons ref={buttonsRef}>
+          <RegenerateButton onClick={generate}>
+            <svg
+              width="32"
+              height="32"
+              viewBox="-5 -5 36 36"
+              fill="#fff"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M15.2 22.2L19.8 22.2C20.6 22.2 21.3 22.9 21.3 23.73C21.3 24.5 20.6 25.25 19.8 25.25L11.65 25.25C10.8 25.25 10.2 24.5 10.2 23.73L10.2 15.4C10.2 14.58 10.8 13.9 11.65 13.9C12.47 13.9 13.1 14.58 13.1 15.4L13.1 20.08L22.82 10.2C23.4 9.6 24.34 9.6 24.9 10.2C25.5 10.777 25.5 11.7 24.9 12.3L15.2 22.2Z" />
+              <path d="M11 3.8H6.43C5.6 3.8 4.95 3.16 4.95 2.33C4.95 1.5 5.6 0.82 6.43 0.82H14.57C15.4 0.82 16.05 1.5 16.05 2.33V10.65C16.05 11.48 15.4 12.16 14.57 12.16C13.75 12.16 13.09 11.48 13.09 10.65V5.98L3.4 15.87C2.83 16.46 1.89 16.46 1.31 15.87C0.73 15.28 0.73 14.32 1.31 13.7326L11 3.8Z" />
+            </svg>
+            <VisuallyHidden>Generate a new password</VisuallyHidden>
+          </RegenerateButton>
+          <button
+            type="button"
+            aria-label="Copy password to clipboard"
+            onClick={copyToClipboard}
           >
-            <path d="M15.2 22.2L19.8 22.2C20.6 22.2 21.3 22.9 21.3 23.73C21.3 24.5 20.6 25.25 19.8 25.25L11.65 25.25C10.8 25.25 10.2 24.5 10.2 23.73L10.2 15.4C10.2 14.58 10.8 13.9 11.65 13.9C12.47 13.9 13.1 14.58 13.1 15.4L13.1 20.08L22.82 10.2C23.4 9.6 24.34 9.6 24.9 10.2C25.5 10.777 25.5 11.7 24.9 12.3L15.2 22.2Z" />
-            <path d="M11 3.8H6.43C5.6 3.8 4.95 3.16 4.95 2.33C4.95 1.5 5.6 0.82 6.43 0.82H14.57C15.4 0.82 16.05 1.5 16.05 2.33V10.65C16.05 11.48 15.4 12.16 14.57 12.16C13.75 12.16 13.09 11.48 13.09 10.65V5.98L3.4 15.87C2.83 16.46 1.89 16.46 1.31 15.87C0.73 15.28 0.73 14.32 1.31 13.7326L11 3.8Z" />
-          </svg>
-          <VisuallyHidden>Generate a new password</VisuallyHidden>
-        </RegenerateButton>
-        <button
-          type="button"
-          aria-label="Copy password to clipboard"
-          onClick={copyToClipboard}
-        >
-          Copy
-        </button>
-      </Buttons>
-    </InputWrapper>
+            Copy
+          </button>
+        </Buttons>
+      </InputWrapper>
+      <Toaster />
+    </>
   );
 }
 
