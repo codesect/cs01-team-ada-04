@@ -6,17 +6,17 @@
     "@reach/alert": "^0.6.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
-    "cypress": "^3.6.1",
+    "cypress": "^15.10.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.4.2",
     "eslint-plugin-cypress": "^2.7.0",
     "jest-styled-components": "^6.3.3",
-    "start-server-and-test": "^1.10.4"
+    "start-server-and-test": "^1.15.4"
   },
   "scripts": {
     "build": "react-scripts build",
